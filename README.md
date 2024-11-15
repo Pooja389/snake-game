@@ -31,3 +31,7 @@ This is a classic Snake Game built using Python's `turtle` module. The game incl
 1. Clone the repository:
    ```bash
    git clone https://github.com/Pooja389/snake-game.git
+2. Navigate to the project directory
+   cd snake-game
+3. Run the game
+   python snake.py     
