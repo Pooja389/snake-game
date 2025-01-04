@@ -1,7 +1,10 @@
 from turtle import *
 import time,random
+from tkinter import TclError  # Add this at the top of your script
+
+
 score_val = 0
-with open("/Users/YC/Desktop/my_file.txt") as file:
+with open("my_file.txt") as file:
     highest_score = int(file.read())
 screen = Screen()
 screen.setup(width=500,height=500)
@@ -89,7 +92,7 @@ def reset_game():
     screen.onkey(move_down,"Down")
     screen.onkey(move_right,"Right")
     screen.tracer(0)
-    loop()
+    return
 
 screen.listen()
 screen.onkey(move_up,"Up")
@@ -102,53 +105,54 @@ bodies = []
 def loop():
     global move_down,move_left,move_right,move_up
     global score_val,food,highest_score
-    while True:
+    try:
+        while True:
         
-        screen.update()
-        betty.speed(20)
-        move()
-        if betty.xcor() > 245 or betty.ycor() > 245 or betty.xcor() < -245 or betty.ycor() < -245:
-            ask = screen.textinput(prompt= f"do you want to play again\nyour score is {score_val}",title="game over")
-            if ask == "yes":
-                reset_game()
-            else:
-                screen.bye()
+            screen.update()
+            betty.speed(20)
+            move()
+            if betty.xcor() > 245 or betty.ycor() > 245 or betty.xcor() < -245 or betty.ycor() < -245:
+                ask = screen.textinput(prompt= f"do you want to play again\nyour score is {score_val}",title="game over")
+                if ask == "yes":
+                    reset_game()
+                else:
+                    screen.bye()
 
-        x = random.randint(-240,240)
-        y = random.randint(-240,220)
+            x = random.randint(-240,240)
+            y = random.randint(-240,220)
 
-        if betty.distance(food) < 13:
-            food.goto(x,y)
+            if betty.distance(food) < 13:
+                food.goto(x,y)
         
     # snake body
         
-            body = Turtle()
-            body.shape("square")
-            body.color("white")
-            body.penup()
+                body = Turtle()
+                body.shape("square")
+                body.color("white")
+                body.penup()
         
-            bodies.append(body)
+                bodies.append(body)
 
-            score_val += 1  
+                score_val += 1  
 
-            if score_val > highest_score:
-                highest_score = score_val
-            update_score()
+                if score_val > highest_score:
+                    highest_score = score_val
+                update_score()
 
-        for body in range(len(bodies)-1,0,-1):
-            x = bodies[body-1].xcor()
-            y = bodies[body-1].ycor()
-            bodies[body].goto(x,y)
-        
-        if len(bodies) > 0:
-            x = betty.xcor()
-            y = betty.ycor()
-            bodies[0].goto(x, y)
-
-        for body in bodies:
-            if body.distance(betty)<20:
-                break
-        time.sleep(0.12)
-
+            for body in range(len(bodies)-1,0,-1):
+                x = bodies[body-1].xcor()
+                y = bodies[body-1].ycor()
+                bodies[body].goto(x,y)
+         
+            if len(bodies) > 0:
+                x = betty.xcor()
+                y = betty.ycor()
+                bodies[0].goto(x, y)
+ 
+            for body in bodies:
+                if body.distance(betty)<20:
+                    break
+            time.sleep(0.12)
+    except TclError:
+        print("Turtle window closed. Exiting game.")    
 loop()
-screen.exitonclick()
