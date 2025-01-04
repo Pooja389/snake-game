@@ -24,7 +24,7 @@ This is a classic Snake Game built using Python's `turtle` module. The game incl
 - Python 3.x
 - Turtle module (comes pre-installed with Python)
 - A `my_file.txt` file to store the highest score:
-  - Create a text file at `/Users/YC/Desktop/my_file.txt`.
+  - Create a text file at `my_file.txt`.
   - Initialize it with a number (e.g., `0`) to start tracking the highest score.
 
 ## How to Run
